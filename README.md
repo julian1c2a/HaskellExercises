@@ -9,8 +9,7 @@ En este archivo codifico tres funciones.
 
 Primero declaro que se trata de un módulo que exporta
 tres funciones:
-    
-	
+
 	module Fact (fact, euler, euleraprox) where
 
 A continuación digo que voy a usar una módulo que 
@@ -22,7 +21,7 @@ de precisión arbitraria (*Integer*), el tipo se llama
     import Data.Ratio
 
 ### Función **Fact.fact**
-	
+
 Y ya comenzamos por la funcion **fact**. Definimos 
 tres casos base, y después el caso general, por la 
 definición de la función factorial. Entra un *Integer*
@@ -36,20 +35,18 @@ y sale un *Integer*. Bastaría con el primer caso base.
 
 
 ### Función **Fact.euler**
-	
+
 La siguiente función tiene entrada de entero positivo,
 *Integer*, y sale un *Rational*. En realidad es la 
 definición del número **e** de Euler, definido como 
 una suma infinita (rápidamente convergente), de 
 términos de la forma \(1/n!\), 
 
-
 ```math
     e = {{\sum}_{i=0}^{\infty}} {1\over{i!}}
 ```
 
-
-Como la serie es infinita, el entero de entrada tiene 
+Como la serie es infinita, el entero de entrada tiene
 como finalidad solo ver hasta qué término sumamos.
 
     euler :: Integer -> Rational
