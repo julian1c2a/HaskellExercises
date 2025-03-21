@@ -44,7 +44,9 @@ una suma infinita (rápidamente convergente), de
 términos de la forma \(1/n!\), 
 
 
-$ e = \sum_{i=0}^\infty 1\over{i!} $
+```math
+    e = {{\sum}_{i=0}^{\infty}} {1\over{i!}}
+```
 
 
 Como la serie es infinita, el entero de entrada tiene 
