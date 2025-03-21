@@ -6,7 +6,7 @@ main :: IO ()
 main = do
     let arg         = 20
     let arg_str     = show arg
-    let result      = Calcs.Calcs arg
+    let result      = Calcs.fact arg
     putStrLn $ "Calcsorial (" ++ show arg ++ ") = " ++ show result
 
     let arg1 = 17
