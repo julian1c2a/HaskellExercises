@@ -1,6 +1,6 @@
 import System.Environment
 import Data.Ratio
-import Fact (fact, euler, euleraprox)
+import Fact
 
 main :: IO ()
 main = do
