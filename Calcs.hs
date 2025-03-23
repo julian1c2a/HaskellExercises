@@ -1,6 +1,6 @@
 module Calcs (fact, euler, euleraprox) where
 
-import Data.Ratio
+import Data.Ratio ( (%) )
 
 fact :: Integer -> Integer
 fact 0 = 1
