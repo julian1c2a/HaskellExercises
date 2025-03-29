@@ -11,6 +11,7 @@
 ./.vscode/*
 ./.git
 ./.git/*
+HaskellExercises.code-workspace
 *~
 *.txt
 *.o
