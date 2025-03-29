@@ -18,9 +18,10 @@ euleraprox :: Integer -> Double
 euleraprox n = fromRational (euler n)
 
 binom :: Integer -> Integer -> Integer
-binom 0   _   = 0
-binom n   0   = 1
-binom n   n   = 1
-binom n   1   = n
-binom n n-1   = n
-binom n   k   = ((n − k + 1) * (binom n  (k − 1))) / k
+binom	0	_	=	0
+binom	n	0	=	1
+binom	n	n	=	1
+binom	n	1	=	n
+binom	n	k
+	|	k+1=n	=	n-1
+	|	otherwise	=	(n − k + 1) * (binom n  (k − 1)) / k
