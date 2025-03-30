@@ -31,7 +31,7 @@ binom n k
 
 testbinom :: Integer -> Bool 
 testbinom n
-  | n < 0 && binom n 0 == 0 = True 
+  | (n <= 0)&&(binom 0 n == 0) = True 
   | sum [binom n i | i <- [0..n]] == 2^n = True
   | otherwise = False
   where
