@@ -73,15 +73,15 @@ casos sin sentido les damos el valor \(0\) (cardinal
 del conjunto vacío). Las propiedades y definciones
 posibles son varias:
 
-** Definición 1 algebraica **
+####Definición 1 algebraica
 ```math
     {\binom n k} = {\frac {n!} {(n-k)! \cdot k!}}
 ```
-** Definición 2 (por triángulo de Pascal) **
+####Definición 2 (por triángulo de Pascal)
 ```math
     {\binom n k} = {\binom {n-1} {k-1}} + {\binom {n-1} k}
 ```
-** Definición 3 (recursiva con un solo hilo de llamadas) **
+####Definición 3 (recursiva con un solo hilo de llamadas)
 ```math
 	\binom n k = \frac {n!} {{(n-k)! \cdot k!}}
 ```
