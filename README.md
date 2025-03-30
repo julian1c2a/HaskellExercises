@@ -73,12 +73,15 @@ casos sin sentido les damos el valor \(0\) (cardinal
 del conjunto vacío). Las propiedades y definciones 
 posibles son varias:
 
+** Definición 1 algebraica **
 ```math
     {\binom n k} = {\frac {n!} {(n-k)! \cdot k!}}
 ```
+** Definición 2 (por triángulo de Pascal) **
 ```math
     {\binom n k} = {\binom {n-1} {k-1}} + {\binom {n-1} k}
 ```
+** Definición 3 (recursiva con un solo hilo de llamadas) **
 ```math
 	\binom n k = \frac {n!} {{(n-k)! \cdot k!}}
 ```
@@ -88,5 +91,20 @@ posibles son varias:
 ```math
 	{} =  \frac {n \cdot {\binom {n-1} {k-1}}} k
 ```
+
+De estas tres formas de definir la función, la definición tercera es muy adecuada para su implementación en Haskell.
+
+    binom :: Integer -> Integer -> Integer
+    binom n k
+      | n < 0       = 0
+      | k < 0       = 0
+      | n < k       = 0
+      | n == 0      = 0
+      | k == 0      = 1
+      | n == k      = 1
+      | k == 1      = n
+      | k + 1 == n  = n
+      | otherwise   = div (n * binom (n - 1) (k - 1)) k
+
 
 # README.md en construcción
