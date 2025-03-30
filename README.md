@@ -74,19 +74,19 @@ del conjunto vacío). Las propiedades y definciones
 posibles son varias:
 
 ```math
-    {\left( { n \over k} \right)} = {\frac {n!} {(n-k)! \cdot k!}}
+    {\left( {\binom n k} \right)} = {\frac {n!} {(n-k)! \cdot k!}}
 ```
 ```math
-    {\left( { n \over k} \right)} = {\left( { {n-1} \over {k-1}} \right)} + {\left( { {n-1} \over k} \right)}
+    {\left( {\binom n k} \right)} = {\left( { \binom {n-1} {k-1}} \right)} + {\left( {\binom {n-1} k} \right)}
 ```
 ```math
-	\left( {n \over k} \right) = {n!} \over {{(n-k)! cdot k!}}
+	\left( {\binom n k} \right) = \binom {n!} {{(n-k)! \cdot k!}}
 ```
 ```math
-	{} =  \frac {n cdot (n-1)!} {{((n-1)-(k-1))! cdot k cdot (k-1)!}}
+	{} =  \frac {n \cdot (n-1)!} {{((n-1)-(k-1))! \cdot k \cdot (k-1)!}}
 ```
 ```math
-	{} =  \frac {n cdot \left({{n-1} \over {k-1}}\right)} k
+	{} =  \frac {n \cdot \left({\binom {n-1} {k-1}}\right)} k
 ```
 
 # README.md en construcción
