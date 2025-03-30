@@ -93,18 +93,22 @@ posibles son varias:
 ```
 
 De estas tres formas de definir la función, la definición tercera es muy adecuada para su implementación en Haskell.
+En las tres primeras guardas de la definción establecemos cuando el conjunto no tiene sentido o es vacío (no deberían ser iguales, las entradas negativas deberían de dar error),
+y son casos base
 
     binom :: Integer -> Integer -> Integer
-    binom n k
-      | n < 0       = 0
-      | k < 0       = 0
-      | n < k       = 0
-      | n == 0      = 0
-      | k == 0      = 1
-      | n == k      = 1
-      | k == 1      = n
-      | k + 1 == n  = n
-      | otherwise   = div (n * binom (n - 1) (k - 1)) k
+    binom n k            #n es el cardinal del total 
+    			 #k es cardinal de los subconjuntos a formar
+			 #binom n k es el cardinal del conjunto de subconjuntos del total con k elementos
+      | n < 0       = -1 #Aquí debería ser error: sin sentido
+      | k < 0       = -1 #Aquí debería ser error: sin sentido
+      | n < k       =  0 #El conjunto de los conjuntos de más elementos que el total son vacíos
+      | n == 0      =  0 #El conjunto de los subconjuntos del vacío es el vacío
+      | k == 0      =  1 #Solo hay un conjunto vacío en el total
+      | n == k      =  1 #Solo hay un conjunto total en el total
+      | k == 1      =  n #Hay n conjuntos de un solo elemento en el total
+      | n == k + 1  =  n #Hay n conjuntos con solo un elemento menos que el total en el total
+      | otherwise   = div (n * binom (n - 1) (k - 1)) k #Caso recursivo general
 
 
 # README.md en construcción
