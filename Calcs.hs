@@ -27,7 +27,7 @@ binom n k
   | n == k      = 1
   | k == 1      = n
   | k + 1 == n  = n
-  | otherwise   = div ((n - k + 1) * binom n (k - 1)) k
+  | otherwise   = div (n * binom (n - 1) (k - 1)) k
 
 testbinom :: Integer -> Bool 
 testbinom n

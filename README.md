@@ -39,7 +39,7 @@ La siguiente función tiene entrada de entero positivo,
 *Integer*, y sale un *Rational*. En realidad es la
 definición del número **e** de Euler, definido como
 una suma infinita (rápidamente convergente), de
-términos de la forma \(1/n!\),
+términos de la forma \(1 \over {n!}\),
 
 ```math
     e = {{\sum}_{i=0}^{\infty}} {1\over{i!}}
@@ -62,5 +62,19 @@ doble precision.
 
     euleraprox :: Integer -> Double
     euleraprox n = fromRational (euler n)
+
+### Función **Calcs.binom**
+
+Esta función es el número combinatorio que nos da 
+el número de conjuntos diferentes de \(k\) elementos 
+en un conjunto de \(n\) elementos.
+Ha de ser un número entero exacto y positivo. A los 
+casos sin sentido les damos el valor \(0\) (cardinal 
+del conjunto vacío). Las propiedades y definciones 
+posibles son varias:
+
+```math
+    {\left( { n \over k} \right)} = {{n!}\over{(n-k)! \cdot k!}}
+```
 
 # README.md en construcción
