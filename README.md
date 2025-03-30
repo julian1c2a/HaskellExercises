@@ -1,6 +1,6 @@
 # HaskellExercises
 
-Esto es exactamente lo que parece. Ejecuto ejercicios 
+Esto es exactamente lo que parece. Ejecuto ejercicios
 para ir aprendiendo.
 
 ## Calcs.hs
@@ -10,7 +10,7 @@ En este archivo codifico tres funciones.
 Primero declaro que se trata de un módulo que exporta
 tres funciones:
 
-	module Calcs (Calcs, euler, euleraprox) where
+    module Calcs (Calcs, euler, euleraprox) where
 
 A continuación digo que voy a usar una módulo que
 permite usar un tipo de números, racionales exactos,
@@ -22,8 +22,8 @@ de precisión arbitraria (*Integer*), el tipo se llama
 
 ### Función **Calcs.Calcs**
 
-Y ya comenzamos por la funcion **Calcs**. Definimos 
-tres casos base, y después el caso general, por la 
+Y ya comenzamos por la funcion **Calcs**. Definimos
+tres casos base, y después el caso general, por la
 definición de la función Calcsorial. Entra un *Integer*
 y sale un *Integer*. Bastaría con el primer caso base.
 
@@ -65,12 +65,12 @@ doble precision.
 
 ### Función **Calcs.binom**
 
-Esta función es el número combinatorio que nos da 
-el número de conjuntos diferentes de \(k\) elementos 
+Esta función es el número combinatorio que nos da
+el número de conjuntos diferentes de \(k\) elementos
 en un conjunto de \(n\) elementos.
-Ha de ser un número entero exacto y positivo. A los 
-casos sin sentido les damos el valor \(0\) (cardinal 
-del conjunto vacío). Las propiedades y definciones 
+Ha de ser un número entero exacto y positivo. A los
+casos sin sentido les damos el valor \(0\) (cardinal
+del conjunto vacío). Las propiedades y definciones
 posibles son varias:
 
 ** Definición 1 algebraica **
@@ -98,8 +98,8 @@ y son casos base
 
     binom :: Integer -> Integer -> Integer
     binom n k            #n es el cardinal del total 
-    			 #k es cardinal de los subconjuntos a formar
-			 #binom n k es el cardinal del conjunto de subconjuntos del total con k elementos
+                         #k es cardinal de los subconjuntos a formar
+                         #binom n k es el cardinal del conjunto de subconjuntos del total con k elementos
       | n < 0       = -1 #Aquí debería ser error: sin sentido
       | k < 0       = -1 #Aquí debería ser error: sin sentido
       | n < k       =  0 #El conjunto de los conjuntos de más elementos que el total son vacíos
@@ -109,6 +109,5 @@ y son casos base
       | k == 1      =  n #Hay n conjuntos de un solo elemento en el total
       | n == k + 1  =  n #Hay n conjuntos con solo un elemento menos que el total en el total
       | otherwise   = div (n * binom (n - 1) (k - 1)) k #Caso recursivo general
-
-
+      
 # README.md en construcción
