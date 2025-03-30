@@ -74,10 +74,10 @@ del conjunto vacío). Las propiedades y definciones
 posibles son varias:
 
 ```math
-    {\left( { n \over k} \right)} = {\frac {n!} {(n-k)! \cdot k!}}\newline
-    {\left( { n \over k} \right)} = {\left( { {n-1} \over {k-1}} \right)} + {\left( { {n-1} \over k} \right)}\newline	
-	\left( {n \over k} \right) = {n!} \over {{(n-k)! cdot k!}} newline
-	{} =  \frac {n cdot (n-1)!} {{((n-1)-(k-1))! cdot k cdot (k-1)!}} newline
+    {\left( { n \over k} \right)} = {\frac {n!} {(n-k)! \cdot k!}}
+    {\left( { n \over k} \right)} = {\left( { {n-1} \over {k-1}} \right)} + {\left( { {n-1} \over k} \right)}
+	\left( {n \over k} \right) = {n!} \over {{(n-k)! cdot k!}}
+	{} =  \frac {n cdot (n-1)!} {{((n-1)-(k-1))! cdot k cdot (k-1)!}}
 	{} =  \frac {n cdot \left({{n-1} \over {k-1}}\right)} k
 ```
 
