@@ -93,8 +93,9 @@ posibles son varias:
 ```
 
 De estas tres formas de definir la función, la definición tercera es muy adecuada para su implementación en Haskell.
-En las tres primeras guardas de la definción establecemos cuando el conjunto no tiene sentido o es vacío (no deberían ser iguales, las entradas negativas deberían de dar error),
-y son casos base
+Las dos primeras guardas de la definción establecemos que error (-1 es un entero pero no tiene sentido como cardinal), las siguientes dos guardas
+definen cuando el conjunto resultantes de subconjuntos es vacío. 
+Las terceras dos guardas son los casos más sencillos con resultado 1, y las cuartas dan siempre *n*. El siguiente es el caso general por recursión.
 
     binom :: Integer -> Integer -> Integer
     binom n k            #n es el cardinal del total 
