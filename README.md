@@ -101,17 +101,17 @@ definen cuando el conjunto resultantes de subconjuntos es vacío.
 Las terceras dos guardas son los casos más sencillos con resultado 1, y las cuartas dan siempre *n*. El siguiente es el caso general por recursión.
 
     binom :: Integer -> Integer -> Integer
-    binom n k            #n es el cardinal del total 
-                         #k es cardinal de los subconjuntos a formar
-                         #binom n k es el cardinal del conjunto de subconjuntos del total con k elementos
-      | n < 0       = -1 #Aquí debería ser error: sin sentido
-      | k < 0       = -1 #Aquí debería ser error: sin sentido
-      | n < k       =  0 #El conjunto de los conjuntos de más elementos que el total son vacíos
-      | n == 0      =  0 #El conjunto de los subconjuntos del vacío es el vacío
-      | k == 0      =  1 #Solo hay un conjunto vacío en el total
-      | n == k      =  1 #Solo hay un conjunto total en el total
-      | k == 1      =  n #Hay n conjuntos de un solo elemento en el total
-      | n == k + 1  =  n #Hay n conjuntos con solo un elemento menos que el total en el total
-      | otherwise   = div (n * binom (n - 1) (k - 1)) k #Caso recursivo general
+    binom n k   # n es el cardinal del total 
+                # k es cardinal de los subconjuntos a formar
+                # binom n k es el cardinal del conjunto de subconjuntos del total con k elementos
+      | n < 0       = -1 # Aquí debería ser error: sin sentido
+      | k < 0       = -1 # Aquí debería ser error: sin sentido
+      | n < k       =  0 # El conjunto de los conjuntos de más elementos que el total son vacíos
+      | n == 0      =  0 # El conjunto de los subconjuntos del vacío es el vacío
+      | k == 0      =  1 # Solo hay un conjunto vacío en el total
+      | n == k      =  1 # Solo hay un conjunto total en el total
+      | k == 1      =  n # Hay n conjuntos de un solo elemento en el total
+      | n == k + 1  =  n # Hay n conjuntos con solo un elemento menos que el total en el total
+      | otherwise   = div (n * binom (n - 1) (k - 1)) k # Caso recursivo general
       
 # README.md en construcción
