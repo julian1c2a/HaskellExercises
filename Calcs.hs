@@ -69,9 +69,10 @@ test_binom_property_1 n k -- PROPERTY_1 := C(n k) == C(n (n-k))
 
 test_binom_property_2 :: Integer -> Bool
 test_binom_property_2 n -- PROPERTY_2 := SUM BINOM(N K) FROM K=0 TO K=N == 2^N
-  | (n < 0) && (binom n 1 == (-1)) = True
-  | sum [binom n i | i <- [0 .. n]] == 2 ^ n = True
-  | otherwise = False
+  | (n < 0) && (n <= k) && (binom n 1 == (-1)) = True -- CASOS SIN SENTIDO
+  | (n >= 0) && (n < k) && (binom n 1 == (-1)) = True -- CASOS SIN SENTIDO
+  | sum [binom n i | i <- [0 .. n]] == 2 ^ n = True   -- CASOS DOMINIO CORRECTOS
+  | otherwise = False                                 -- CASOS DOMINIO INCORRECTOS
   where
     sum [] = 0
     sum (x : xs) = x + sum xs
