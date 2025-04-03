@@ -1,6 +1,5 @@
 import Test.QuickCheck
-import Calcs.binom
-import Calcs.fact
+import Calcs ( binom , fact )
 
 test_binom_property_0 :: Integer -> Integer -> Bool
 test_binom_property_0 n k -- PROPERTY_0 := C(n k) == n! / ((n-k)! k!)
@@ -31,10 +30,9 @@ test_binom_property_1 n k -- PROPERTY_1 := C(n k) == C(n (n-k))
 
 test_binom_property_2 :: Integer -> Bool
 test_binom_property_2 n -- PROPERTY_2 := SUM BINOM(N K) FROM K=0 TO K=N == 2^N
-  | (n < 0) && (n <= k) && (binom n 1 == (-1)) = True -- CASOS SIN SENTIDO
-  | (n >= 0) && (n < k) && (binom n 1 == (-1)) = True -- CASOS SIN SENTIDO
+  | (n  < 0)  && (binom n 1 == (-1))         = True   -- CASOS SIN SENTIDO
   | sum [binom n i | i <- [0 .. n]] == 2 ^ n = True   -- CASOS DOMINIO CORRECTOS
-  | otherwise = False                                 -- CASOS DOMINIO INCORRECTOS
+  | otherwise                                = False  -- CASOS DOMINIO INCORRECTOS
   where
     sum [] = 0
     sum (x : xs) = x + sum xs
@@ -60,8 +58,7 @@ test_binom_property_3 n k -- PROPERTY_3 :=
 
 main :: IO ()
 main = do 
-	quickCheck test_binom_property_0
-	quickCheck test_binom_property_1
-	quickCheck test_binom_property_2
-	quickCheck test_binom_property_3
-	
+    quickCheck test_binom_property_0
+    quickCheck test_binom_property_1
+    quickCheck test_binom_property_2
+    quickCheck test_binom_property_3
