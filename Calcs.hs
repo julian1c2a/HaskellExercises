@@ -15,7 +15,7 @@ euler 2 = 5 % 2
 euler n = (1 % fact n) + euler (n - 1)
 
 euleraprox :: Integer -> Double
-euleraprox n = fromRational (euler n)
+euleraprox n = fromRational (euler n) -- CAST EN LIBRARÍA DE RATIONAL A DOUBLE
 
 binom :: Integer -> Integer -> Integer
 binom n k
