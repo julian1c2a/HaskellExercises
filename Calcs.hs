@@ -1,4 +1,4 @@
-module Calcs (fact, euler, euleraprox , binom ) where
+module Calcs ( fact, euler, euleraprox , binom ) where
 
 import Data.Ratio
 
