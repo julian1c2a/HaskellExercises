@@ -39,3 +39,14 @@ binom n k
   -- SOLO ELEMENTO MENOS QUE EL TOTAL SON BIYECTABLES CON LOS
   -- DE UN SOLO ELEMENTOS DEL TOTAL: TIENE CARDINAL n
   | otherwise = div (n * binom (n - 1) (k - 1)) k -- FÓRMULA DE RECURRENCIA
+
+bernoulli :: Integer -> Rational
+bernoulli n =
+  | n       <  0 =  0 %  1 -- NO HAY NÚMEROS DE BERNOULLI DE ÍNDICE NEGATIVOS
+  | n       == 0 =  1 %  1 -- CASO BASE IMPRESCINDIBLE
+  | n       == 1 = -1 %  2 -- CASO BASE PRESCINDIBLE
+  | n       == 2 =  1 %  6 -- CASO BASE PRESCINDIBLE
+  | n       == 3 = -1 % 30 -- CASO BASE PRESCINDIBLE
+  | n mod 2 == 1 =  0 %  1 -- CASO DE DE NÚMEROS DE BERNOULLI IMPARES
+  | otherwise    = sum [binom n k * bernoulli k | k <- [0..(n-1)]] % (n + 1) 
+                  -- CASO DE RECURRENCIA GENERAL
