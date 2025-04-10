@@ -1,4 +1,7 @@
-module Calcs ( fact, euler, euleraprox , binom ) where
+module Calcs (  fact, euler, euleraprox , 
+                binom , bernoulli_number , 
+                bernoulli_poly ) 
+      where
 
 import Data.Ratio
 
@@ -41,16 +44,17 @@ binom n k
   | otherwise = div (n * binom (n - 1) (k - 1)) k -- FÓRMULA DE RECURRENCIA
 
 bernoulli_number :: Integer -> Rational
-bernoulli_number n =
-  | n       <  0 =  0 %  1 -- NO HAY NÚMEROS DE BERNOULLI DE ÍNDICE NEGATIVOS
-  | n       == 0 =  1 %  1 -- CASO BASE IMPRESCINDIBLE
-  | n       == 1 = -1 %  2 -- CASO BASE PRESCINDIBLE
-  | n       == 2 =  1 %  6 -- CASO BASE PRESCINDIBLE
-  | n       == 3 =  0 %  1 -- CASO BASE PRESCINDIBLE
-  | n       == 4 = -1 % 30 -- CASO BASE PRESCINDIBLE
+bernoulli_number n
+  | n  < 0       =  0 %  1 -- NO HAY NÚMEROS DE BERNOULLI DE ÍNDICE NEGATIVOS
+  | n == 0       =  1 %  1 -- CASO BASE IMPRESCINDIBLE
+  | n == 1       = -1 %  2 -- CASO BASE PRESCINDIBLE
+  | n == 2       =  1 %  6 -- CASO BASE PRESCINDIBLE
+  | n == 3       =  0 %  1 -- CASO BASE PRESCINDIBLE
+  | n == 4       = -1 % 30 -- CASO BASE PRESCINDIBLE
   | n mod 2 == 1 =  0 %  1 -- CASO DE DE NÚMEROS DE BERNOULLI IMPARES
   | otherwise    = sum [binom n k * bernoulli_number k | k <- [0..(n-1)]] % (n + 1) 
-                  -- CASO DE RECURRENCIA GENERAL
+                -- CASO DE RECURRENCIA GENERAL
+
 
 -- | Bernoulli numbers are a sequence of rational numbers 
 -- | with many applications in number theory and combinatorics.
@@ -70,15 +74,15 @@ bernoulli_number n =
 -- | B_12 = -691/2730
 
 bernoulli_poly :: Integer -> (Rational -> Rational)
-bernoulli_poly n =
+bernoulli_poly n
   | n       <= 0 =  \x ->   1 % 1 --CASO BASE IMPRESICINDIBLE
-  | n       == 1 =  \x -> - 1 % 2 + x --CASO BASE PRESCINDIBLE
+  | n       == 1 =  \x ->  -1 % 2 + x --CASO BASE PRESCINDIBLE
   | n       == 2 =  \x ->   1 % 6 - x + x^^2 --CASO BASE PRESCINDIBLE
-  | n       == 3 =  \x ->   (1 % 2) * x − (3 % 2) * x^^2 + x^^3 
+  | n       == 3 =  \x ->   (1 % 2) * x + (-3 % 2) * x^^2 + x^^3 
   -- CASO BASE PRESCINDIBLE
-  | n       == 4 =  \x -> − (1 % 30) + x^^2 − 2 * x^^3 + x^^4
+  | n       == 4 =  \x -> (-1 % 30) + x^^2 − 2 * x^^3 + x^^4
   -- CASO BASE PRESCINDIBLE
   | otherwise    =  \x -> sum [ (term n k) x | k <- [0..n]]
   -- CASO DE RECURRENCIA GENERAL
     where
-      term n k = \x -> binom n k * bernoulli_number k * x^^(n - k)
+      term n k = \x -> (binom n k) * (bernoulli_number k) * (x^^(n - k))
