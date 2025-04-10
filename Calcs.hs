@@ -51,9 +51,11 @@ bernoulli_number n
   | n == 2       =  1 %  6 -- CASO BASE PRESCINDIBLE
   | n == 3       =  0 %  1 -- CASO BASE PRESCINDIBLE
   | n == 4       = -1 % 30 -- CASO BASE PRESCINDIBLE
-  | n mod 2 == 1 =  0 %  1 -- CASO DE DE NÚMEROS DE BERNOULLI IMPARES
-  | otherwise    = sum [binom n k * bernoulli_number k | k <- [0..(n-1)]] % (n + 1) 
+  | mod n 2 == 1 =  0 %  1 -- CASO DE DE NÚMEROS DE BERNOULLI IMPARES
+  | otherwise    = sum [ coef n k | k <- [0..(n-1)]] * ( 1 % (n + 1) )
                 -- CASO DE RECURRENCIA GENERAL
+    where
+      coef n k = ( (binom n k) % 1 ) * ( bernoulli_number k )
 
 
 -- | Bernoulli numbers are a sequence of rational numbers 
@@ -80,9 +82,10 @@ bernoulli_poly n
   | n       == 2 =  \x ->   1 % 6 - x + x^^2 --CASO BASE PRESCINDIBLE
   | n       == 3 =  \x ->   (1 % 2) * x + (-3 % 2) * x^^2 + x^^3 
   -- CASO BASE PRESCINDIBLE
-  | n       == 4 =  \x -> (-1 % 30) + x^^2 − 2 * x^^3 + x^^4
+  | n       == 4 =  \x -> (-1 % 30) + x^^2 + (-2 % 1) * x^^3 + x^^4
   -- CASO BASE PRESCINDIBLE
   | otherwise    =  \x -> sum [ (term n k) x | k <- [0..n]]
   -- CASO DE RECURRENCIA GENERAL
     where
-      term n k = \x -> (binom n k) * (bernoulli_number k) * (x^^(n - k))
+      term :: Integer -> Integer -> (Rational -> Rational)
+      term n k = \x -> ((binom n k) % 1) * (bernoulli_number k) * (x^^(n - k))

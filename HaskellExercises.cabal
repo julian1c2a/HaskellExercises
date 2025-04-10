@@ -6,9 +6,9 @@ synopsis:            A simple Haskell project
 homepage:            https://github.com/githubuser/HaskellExercises#readme
 license:             MIT
 license-file:        LICENSE
-author:              Julia
-maintainer:          yourname@example.com
-copyright:           2023 Julian Calderón Almendros
+author:              Julián Calderón Almendros
+maintainer:          julian.calderon.almendros@gmail.com
+copyright:           2023 Julián Calderón Almendros
 category:            Web
 build-type:          Simple
 cabal-version:       >=1.10
