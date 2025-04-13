@@ -4,7 +4,7 @@ version:             0.1.0.0
 synopsis:            A simple Haskell project
 -- description:
 homepage:            https://github.com/githubuser/HaskellExercises#readme
-license:             MIT
+license:             GPL-3.0-or-later
 license-file:        LICENSE
 author:              Julián Calderón Almendros
 maintainer:          julian.calderon.almendros@gmail.com

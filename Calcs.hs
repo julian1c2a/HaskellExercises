@@ -1,6 +1,6 @@
 module Calcs (  fact, euler, euleraprox , 
-                binom , bernoulli_number , 
-                bernoulli_poly ) 
+                binom , bern , 
+                bern_poly ) 
       where
 
 import Data.Ratio
@@ -43,20 +43,20 @@ binom n k
   -- DE UN SOLO ELEMENTOS DEL TOTAL: TIENE CARDINAL n
   | otherwise = div (n * binom (n - 1) (k - 1)) k -- FÓRMULA DE RECURRENCIA
 
-bernoulli_number :: Integer -> Rational
-bernoulli_number n
+bern :: Integer -> Rational
+bern n
   | n  < 0       =  0 %  1 -- NO HAY NÚMEROS DE BERNOULLI DE ÍNDICE NEGATIVOS
   | n == 0       =  1 %  1 -- CASO BASE IMPRESCINDIBLE
   | n == 1       = -1 %  2 -- CASO BASE PRESCINDIBLE
   | n == 2       =  1 %  6 -- CASO BASE PRESCINDIBLE
   | n == 3       =  0 %  1 -- CASO BASE PRESCINDIBLE
   | n == 4       = -1 % 30 -- CASO BASE PRESCINDIBLE
-  | mod n 2 == 1 =  0 %  1 -- CASO DE DE NÚMEROS DE BERNOULLI IMPARES
-  | otherwise    = sum [ coef n k | k <- [0..(n-1)]] * ( 1 % (n + 1) )
-                -- CASO DE RECURRENCIA GENERAL
+  | mod n 2 == 0 = -sum [ coef (n + 1) k | k <- [0..(n-1)] ] * ( 1 % (n + 1) )
+  -- CASO DE RECURRENCIA GENERAL PARA ÍNDICES PARES
+  | otherwise    =  0 %  1 -- CASO DE ÍNDICES IMPARES
     where
-      coef n k = ( (binom n k) % 1 ) * ( bernoulli_number k )
-
+      coef :: Integer -> Integer -> Rational
+      coef n k = ( ( binom n k ) % 1 ) * bern k
 
 -- | Bernoulli numbers are a sequence of rational numbers 
 -- | with many applications in number theory and combinatorics.
@@ -75,8 +75,8 @@ bernoulli_number n
 -- | B_11 = 0
 -- | B_12 = -691/2730
 
-bernoulli_poly :: Integer -> (Rational -> Rational)
-bernoulli_poly n
+bern_poly :: Integer -> (Rational -> Rational)
+bern_poly n
   | n       <= 0 =  \x ->   1 % 1 --CASO BASE IMPRESICINDIBLE
   | n       == 1 =  \x ->  -1 % 2 + x --CASO BASE PRESCINDIBLE
   | n       == 2 =  \x ->   1 % 6 - x + x^^2 --CASO BASE PRESCINDIBLE
@@ -84,8 +84,32 @@ bernoulli_poly n
   -- CASO BASE PRESCINDIBLE
   | n       == 4 =  \x -> (-1 % 30) + x^^2 + (-2 % 1) * x^^3 + x^^4
   -- CASO BASE PRESCINDIBLE
-  | otherwise    =  \x -> sum [ (term n k) x | k <- [0..n]]
+  | otherwise    =  \x -> sum [ ( monomio n (2*k) ) x | k <- [0..(div n 2)]]
   -- CASO DE RECURRENCIA GENERAL
     where
-      term :: Integer -> Integer -> (Rational -> Rational)
-      term n k = \x -> ((binom n k) % 1) * (bernoulli_number k) * (x^^(n - k))
+      monomio :: Integer -> Integer -> (Rational -> Rational)
+      monomio n k = \x -> ((binom n k) % 1) * (bern k) * (x^^(n - k))
+-- | Bernoulli polynomials are a sequence of polynomials on the rational field 
+-- | with many applications in number theory and combinatorics.
+-- | The first few Bernoulli polynomials are:
+-- | B_0(x) = 1
+-- | B_1(x) = x-(1/2)
+-- | B_2(x) = x^2-x+(1/6)
+-- | B_3(x) = x^3-(3/2)x^2+(1/2)x
+-- | B_4(x) = x^4-2x^3+x^2-(1/30)
+-- | B_5(x) = x^5-(5/2)x^4+(5/3)x^3-(1/6)x
+-- | B_6(x) = x^6-3x^5+(5/2)x^4-(1/2)x^2+(1/42)
+-- | B_7(x) = x^7-(7/2)x^6+(7/2)x^5-(7/6)x^3+(1/6)x
+-- | B_8(x) = x^8-4x^7+(14/3)x^6-(7/3)x^4+(2/3)x^2-(1/30)
+-- | B_9(x) = x^9-(9/2)x^8+6x^7-(21/5)x^5+2x^3-(3/10)x
+-- | B_10(x) = x^10-5x^9+(15/2)x^8-7x^6+5x^4-(3/2)x^2+(5/66)
+-- | B_11(x) = x^11-(11/2)x^10+(55/6)x^9-11x^7+11x^5-(11/2)x^3+(5/6)x^2
+-- | B_12(x) = x^12-6x^11+11x^10-(33/2)x^8+22x^6-(33/2)x^4+5x^2-(691/2730)
+
+fnAT :: Integer -> Integer -> Rational
+-- Akiyama-Tanigawa numbers
+fnAT n m
+	| n < 0 || m < 0          = 0%1
+	| n == 0 && m == 0        = 1%1
+	| n == 0                  = 1%(m+1)
+	| otherwise               = ( ( m + 1 ) % 1 ) * ( ( fnAT (n-1) m ) - ( fnAT (n-1) (m+1) ) )
