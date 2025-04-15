@@ -1,6 +1,6 @@
 module Calcs (  fact, euler, euleraprox , 
                 binom , bern , 
-                bern_poly ) 
+                bern_poly , fnAT         ) 
       where
 
 import Data.Ratio
@@ -107,9 +107,11 @@ bern_poly n
 -- | B_12(x) = x^12-6x^11+11x^10-(33/2)x^8+22x^6-(33/2)x^4+5x^2-(691/2730)
 
 fnAT :: Integer -> Integer -> Rational
--- Akiyama-Tanigawa numbers
+-- Akiyama-Tanigawa numbers (table 2D of numbers)
 fnAT n m
-	| n < 0 || m < 0          = 0%1
-	| n == 0 && m == 0        = 1%1
-	| n == 0                  = 1%(m+1)
-	| otherwise               = ( ( m + 1 ) % 1 ) * ( ( fnAT (n-1) m ) - ( fnAT (n-1) (m+1) ) )
+    | n < 0 || m < 0          = 0%1
+    | n == 0 && m == 0        = 1%1
+    | n == 0                  = 1%(m+1)
+	| n == 1                  = ( ( m + 1 ) % 1 ) * ( ( fnAT 0 m ) - ( fnAT 0 (m+1) ) )
+	| n == 2                  = ( ( m + 1 ) % 1 ) * ( ( fnAT 1 m ) - ( fnAT 1 (m+1) ) )
+    | otherwise               = ( ( m + 1 ) % 1 ) * ( ( fnAT (n-1) m ) - ( fnAT (n-1) (m+1) ) )

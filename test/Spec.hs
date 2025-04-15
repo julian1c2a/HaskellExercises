@@ -1,5 +1,7 @@
 import Test.QuickCheck
-import Calcs ( binom , fact )
+import Calcs (  fact, euler, euleraprox , 
+                binom , bern , 
+                bern_poly , fnAT         )
 
 test_binom_property_0 :: Integer -> Integer -> Bool
 test_binom_property_0 n k -- PROPERTY_0 := C(n k) == n! / ((n-k)! k!)

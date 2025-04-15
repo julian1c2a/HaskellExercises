@@ -10,7 +10,9 @@ En este archivo codifico tres funciones.
 Primero declaro que se trata de un módulo que exporta
 tres funciones:
 
-    module Calcs (Calcs, euler, euleraprox) where
+    module Calcs ( 	Calcs , euler , euleraprox , 
+					bern , bern_poly , fnAT 	) 
+				where
 
 A continuación digo que voy a usar una módulo que
 permite usar un tipo de números, racionales exactos,
@@ -27,7 +29,7 @@ tres casos base, y después el caso general, por la
 definición de la función Calcsorial. Entra un *Integer*
 y sale un *Integer*. Bastaría con el primer caso base.
 
-    Calcs :: Integer -> Intege
+    Calcs :: Integer -> Integer
     Calcs 0 = 1
     Calcs 1 = 1
     Calcs 2 = 2
@@ -113,5 +115,11 @@ Las terceras dos guardas son los casos más sencillos con resultado 1, y las cua
       | k == 1      =  n # Hay n conjuntos de un solo elemento en el total
       | n == k + 1  =  n # Hay n conjuntos con solo un elemento menos que el total en el total
       | otherwise   = div (n * binom (n - 1) (k - 1)) k # Caso recursivo general
+
+### Función **Calcs.bern**
+
+Implementamos una función para encontrar los números de Bernoulli, en la primera acepción, 
+dónde \( B_1 = frac -1 2 \). Hay un montón de propiedades para los números de Bernoulli. Desde 
+definirlos por una función generatriz,
       
 # README.md en construcción
