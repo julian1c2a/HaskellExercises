@@ -115,3 +115,13 @@ fnAT n m
 	| n == 1                  = ( ( m + 1 ) % 1 ) * ( ( fnAT 0 m ) - ( fnAT 0 (m+1) ) )
 	| n == 2                  = ( ( m + 1 ) % 1 ) * ( ( fnAT 1 m ) - ( fnAT 1 (m+1) ) )
     | otherwise               = ( ( m + 1 ) % 1 ) * ( ( fnAT (n-1) m ) - ( fnAT (n-1) (m+1) ) )
+	
+fnJC :: Integer -> Integer -> Rational
+-- Julián-Calderón numbers (table 2D of numbers)
+fnJC n m
+    | n < 0 || m < 0          = 0%1
+    | m == 1                  = 1%n
+    | otherwise               = -(coef n m) * sum[((binom (n-m+l) (n-m)) % 1) * fnJC n (m-l+1) | l <- [2..m] ]
+		where
+			coef :: Integer -> Integer -> Rational
+			coef n m = 1 % ( n - m + 1 )
