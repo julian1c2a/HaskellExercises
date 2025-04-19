@@ -18,7 +18,8 @@ test-suite HaskellExercises-test
   hs-source-dirs:      test
   main-is:             Spec.hs
   build-depends:       base >=4.7 && <5,
-                       QuickCheck >=2.14
+                       QuickCheck >=2.14,
+                       HaskellExercises
   hs-source-dirs:      ./test/.
   ghc-options:         -Wall
   default-language:    Haskell2010
