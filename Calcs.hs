@@ -76,11 +76,16 @@ bern n
 -- | B_12 = -691/2730
 
 bern_monomial :: Integer -> Integer -> (Rational -> Rational)
-bern_monomial n k = \x -> ((binom n k) % 1) * (bern k) * (x^^(n - k))
+bern_monomial n k
+  | n       <= 0 = \x -> 0 % 1
+  | k       >  n = \x -> 0 % 1
+  | k       == 0 = \x -> bern n
+  | otherwise    = \x -> ((binom n k) % 1) * (bern k) * (x^^(n - k))
 
 bern_poly :: Integer -> (Rational -> Rational)
 bern_poly n
-  | n       <= 0 =  \x ->   1 % 1 --CASO BASE IMPRESICINDIBLE
+  | n        < 0 =  \x ->   0 % 1 --CASO DE NO EXISTENCIA DEL POLINOMIO DE BERNOULLI
+  | n       == 0 =  \x ->   1 % 1 --CASO BASE IMPRESICINDIBLE
   | n       == 1 =  \x ->  -1 % 2 + x --CASO BASE PRESCINDIBLE
   | n       == 2 =  \x ->   1 % 6 - x + x^^2 --CASO BASE PRESCINDIBLE
   | n       == 3 =  \x ->   (1 % 2) * x + (-3 % 2) * x^^2 + x^^3 
@@ -90,9 +95,13 @@ bern_poly n
   | otherwise    =  \x -> sum [ ( bern_monomial n (2*k) ) x | k <- [0..(div n 2)]]
   -- CASO DE RECURRENCIA GENERAL
 
--- | Bernoulli polynomials are a sequence of polynomials on the rational field 
--- | with many applications in number theory and combinatorics.
--- | The first few Bernoulli polynomials are:
+-- | Los polinomios de Bernoulli son una serie de polinomios Bn(x) con grado igual a n,
+-- | sobre el cuerpo de los racionales con aplicaciones en teoría de números y combinatoria, 
+-- | con especial aplicación a teoría analítica de números.
+-- | El propósito aquí es utilizarlos para comprender la fórmula de sumación de 
+-- | Euler-Mclaurin y obtener formas eficientes de calcular la función zeta de Riemann en EL
+-- | plano complejo.
+-- | Los primeros polinomios de Bernoulli son:
 -- | B_0(x) = 1
 -- | B_1(x) = x-(1/2)
 -- | B_2(x) = x^2-x+(1/6)
