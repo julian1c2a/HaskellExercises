@@ -1,6 +1,6 @@
 module Calcs (  fact, euler, euleraprox , 
                 binom , bern , 
-                bern_poly , fnAT         ) 
+                bern_poly , fnAT , fnJC  ) 
       where
 
 import Data.Ratio
@@ -142,9 +142,9 @@ fnJC n m
     | m > n                   = 0%1 -- CASO ERRÓNEO
     | m == 1                  = 1%n -- CASO BASE
     | otherwise               = -(inv (n-m+1)) * (sumtorio n m) -- CASO GENERAL
-	where
-	  sumtorio :: Integer -> Integer -> Rational
-      sumtorio n m = sum[ (sumndo n m l) * (fnJC n (m-l+1)) | l <- [2..m] ]
-	  where
-        sumndo :: Integer -> Integer -> Integer -> Rational
-        sumndo n m l = (binom (n-m+l) (n-m)) % 1
+      where
+        sumtorio :: Integer -> Integer -> Rational
+        sumtorio n m = sum[ (sumndo n m l) * (fnJC n (m-l+1)) | l <- [2..m] ]
+          where
+            sumndo :: Integer -> Integer -> Integer -> Rational
+            sumndo n m l = (binom (n-m+l) (n-m)) % 1
