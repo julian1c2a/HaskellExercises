@@ -75,6 +75,9 @@ bern n
 -- | B_11 = 0
 -- | B_12 = -691/2730
 
+bern_monomial :: Integer -> Integer -> (Rational -> Rational)
+bern_monomial n k = \x -> ((binom n k) % 1) * (bern k) * (x^^(n - k))
+
 bern_poly :: Integer -> (Rational -> Rational)
 bern_poly n
   | n       <= 0 =  \x ->   1 % 1 --CASO BASE IMPRESICINDIBLE
@@ -84,11 +87,9 @@ bern_poly n
   -- CASO BASE PRESCINDIBLE
   | n       == 4 =  \x -> (-1 % 30) + x^^2 + (-2 % 1) * x^^3 + x^^4
   -- CASO BASE PRESCINDIBLE
-  | otherwise    =  \x -> sum [ ( monomio n (2*k) ) x | k <- [0..(div n 2)]]
+  | otherwise    =  \x -> sum [ ( bern_monomial n (2*k) ) x | k <- [0..(div n 2)]]
   -- CASO DE RECURRENCIA GENERAL
-    where
-      monomio :: Integer -> Integer -> (Rational -> Rational)
-      monomio n k = \x -> ((binom n k) % 1) * (bern k) * (x^^(n - k))
+
 -- | Bernoulli polynomials are a sequence of polynomials on the rational field 
 -- | with many applications in number theory and combinatorics.
 -- | The first few Bernoulli polynomials are:
@@ -112,16 +113,27 @@ fnAT n m
     | n < 0 || m < 0          = 0%1
     | n == 0 && m == 0        = 1%1
     | n == 0                  = 1%(m+1)
-	| n == 1                  = ( ( m + 1 ) % 1 ) * ( ( fnAT 0 m ) - ( fnAT 0 (m+1) ) )
-	| n == 2                  = ( ( m + 1 ) % 1 ) * ( ( fnAT 1 m ) - ( fnAT 1 (m+1) ) )
-    | otherwise               = ( ( m + 1 ) % 1 ) * ( ( fnAT (n-1) m ) - ( fnAT (n-1) (m+1) ) )
+    | n == 1                  = ( (m + 1) % 1 )*( (fnAT 0 m) - (fnAT 0 (m+1)) )
+    | n == 2                  = ( (m + 1) % 1 )*( (fnAT 1 m) - (fnAT 1 (m+1)) )
+    | otherwise               = ( (m + 1) % 1 )*( (fnAT (n-1) m)-(fnAT (n-1) (m+1)) )
 	
 fnJC :: Integer -> Integer -> Rational
 -- Julián-Calderón numbers (table 2D of numbers)
+{-
+    n        in [1..]
+    m        in [1..]
+    fnJC n m in [0..]
+    fnJC n m = 0 ES EL CASO FUERA DEL DOMINIO 
+-}
 fnJC n m
-    | n < 0 || m < 0          = 0%1
-    | m == 1                  = 1%n
-    | otherwise               = -(coef n m) * sum[((binom (n-m+l) (n-m)) % 1) * fnJC n (m-l+1) | l <- [2..m] ]
+    | n <= 0 || m <= 0        = 0%1 -- CASO ERRÓNEO
+    | m == 1                  = 1%n -- CASO BASE
+    | otherwise               = -(coef n m) * sumtorio n m -- CASO GENERAL
 		where
+      sumtorio :: Integer -> Integer -> Rational
+      sumtorio n m = sum[ (sumndo n m) * (fnJC n (m-l+1)) | l <- [2..m] ]
+          where
+            sumndo :: Integer -> Integer .> Rational
+            sumndo n m = (binom (n-m+l) (n-m)) % 1
 			coef :: Integer -> Integer -> Rational
 			coef n m = 1 % ( n - m + 1 )
