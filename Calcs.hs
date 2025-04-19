@@ -125,7 +125,10 @@ fnAT n m
     | n == 1                  = ( (m + 1) % 1 )*( (fnAT 0 m) - (fnAT 0 (m+1)) )
     | n == 2                  = ( (m + 1) % 1 )*( (fnAT 1 m) - (fnAT 1 (m+1)) )
     | otherwise               = ( (m + 1) % 1 )*( (fnAT (n-1) m)-(fnAT (n-1) (m+1)) )
-	
+
+inv :: Integer -> Rational
+inv n = 1 % n
+
 fnJC :: Integer -> Integer -> Rational
 -- Julián-Calderón numbers (table 2D of numbers)
 {-
@@ -136,13 +139,12 @@ fnJC :: Integer -> Integer -> Rational
 -}
 fnJC n m
     | n <= 0 || m <= 0        = 0%1 -- CASO ERRÓNEO
+    | m > n                   = 0%1 -- CASO ERRÓNEO
     | m == 1                  = 1%n -- CASO BASE
-    | otherwise               = -(coef n m) * sumtorio n m -- CASO GENERAL
-		where
-      sumtorio :: Integer -> Integer -> Rational
-      sumtorio n m = sum[ (sumndo n m) * (fnJC n (m-l+1)) | l <- [2..m] ]
-          where
-            sumndo :: Integer -> Integer .> Rational
-            sumndo n m = (binom (n-m+l) (n-m)) % 1
-			coef :: Integer -> Integer -> Rational
-			coef n m = 1 % ( n - m + 1 )
+    | otherwise               = -(inv (n-m+1)) * (sumtorio n m) -- CASO GENERAL
+	where
+	  sumtorio :: Integer -> Integer -> Rational
+      sumtorio n m = sum[ (sumndo n m l) * (fnJC n (m-l+1)) | l <- [2..m] ]
+	  where
+        sumndo :: Integer -> Integer -> Integer -> Rational
+        sumndo n m l = (binom (n-m+l) (n-m)) % 1
