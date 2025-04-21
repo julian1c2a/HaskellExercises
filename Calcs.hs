@@ -149,22 +149,25 @@ fnAT n m
 inv :: Integer -> Rational
 inv n = 1 % n
 
-fnJC :: Integer -> Integer -> Rational
+fnJC' :: Integer -> Integer -> Rational
 -- Julián-Calderón numbers (table 2D of numbers)
 {-
     n        in [1..]
     m        in [1..]
-    fnJC n m in [0..]
-    fnJC n m = 0 ES EL CASO FUERA DEL DOMINIO 
+    fnJC' n m in [0..]
+    fnJC' n m = 0 ES EL CASO FUERA DEL DOMINIO 
 -}
-fnJC n m
+fnJC' n m
     | n <= 0 || m <= 0        = 0%1 -- CASO ERRÓNEO
     | m > n                   = 0%1 -- CASO ERRÓNEO
     | m == 1                  = 1%n -- CASO BASE
     | otherwise               = -(inv (n-m+1)) * (sumtorio n m) -- CASO GENERAL
       where
         sumtorio :: Integer -> Integer -> Rational
-        sumtorio n m = sum[ (sumndo n m l) * (fnJC n (m-l+1)) | l <- [2..m] ]
+        sumtorio n m = sum[ (sumndo n m l) * (fnJC' n (m-l+1)) | l <- [2..m] ]
           where
             sumndo :: Integer -> Integer -> Integer -> Rational
             sumndo n m l = (binom (n-m+l) (n-m)) % 1
+
+fnJC :: Integer -> Integer -> Rational
+fnJC n m = fnJC' n (n+1-m)
