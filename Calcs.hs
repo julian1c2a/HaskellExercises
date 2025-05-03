@@ -1,6 +1,6 @@
-module Calcs (  fact, euler, euleraprox , 
-                binom , bern , 
-                bern_poly , fnAT , fnJC  ) 
+module Calcs (  fact, euler, euleraprox ,
+                binom , bern ,
+                bern_poly , fnAT , fnJC  )
       where
 
 import Data.Ratio
@@ -22,46 +22,46 @@ euleraprox n = fromRational (euler n) -- CAST EN LIBRARÍA DE RATIONAL A DOUBLE
 
 binom :: Integer -> Integer -> Integer
 binom n k
-  | n < 0 = -1 
+  | n < 0 = -1
   -- EL CONJUNTO TOTAL DE CARDINAL NEGATIVO ES UN SINSENTIDO
   | k < 0 = -1 -- QUE LOS SUBCONJUNTOS A COGER SEAN DE CARDINAL
   -- NEGATIVO ES UN SINSENTIDO
-  | n < k = 0 
+  | n < k = 0
   -- LOS SUBCONJUNTOS DEL TOTAL CON CARDINAL ESTRICTAMENTE
   -- MAYOR QUE EL TOTAL: ES EL CONJUNTO VACÍO DE CARDINAL 0
-  | n == 0 && k == 0 = 1 
+  | n == 0 && k == 0 = 1
   -- EL SUBCONJUNTO VACÍO ES ÚNICO Y ESTÁ TAMBIÉN EN EL
   -- VACIO DE CARDINAL 0
-  | n == 0 = 0 
+  | n == 0 = 0
   -- LOS SUBCONJUNTOS DEL VACÍO SON {{}} CUYO CARDINAL ES 1
-  | k == 0 = 1 
+  | k == 0 = 1
   -- LOS SUBCONJUNTOS DE CARDINAL 0 SON EXACTAMENTE EL
   -- CONJUNTO QUE CONTIENE EL VACÍO DE CARDINAL 1
-  | n == k = 1 
+  | n == k = 1
   -- EL CONJUNTO DE LOS SUBCONJUNTOS TAN GRANDES COMO EL
   -- TOTAL ES NECESARIAMENTE EL QUE CONTIENE SOLO EL TOTAL
   -- DE CARDINAL 1
-  | k == 1 = n 
+  | k == 1 = n
   -- EL CONJUNTO DE LOS SUBCONJUNTOS DEL TOTAL PERO DE UN
   -- SOLO ELEMENTO SON EXACTAMENTE LOS UNITARIOS CON UN
   -- ELEMENTO DEL TOTAL: TIENE CARDINAL n
-  | k + 1 == n = n 
+  | k + 1 == n = n
   -- EL CONJUNTO DE LOS SUBCONJUNTOS DEL TOTAL PERO CON UN
   -- SOLO ELEMENTO MENOS QUE EL TOTAL SON BIYECTABLES CON LOS
   -- DE UN SOLO ELEMENTOS DEL TOTAL: TIENE CARDINAL n
-  | otherwise = div (n * binom (n - 1) (k - 1)) k 
+  | otherwise = div (n * binom (n - 1) (k - 1)) k
   -- FÓRMULA DE RECURRENCIA
 
 bern :: Integer -> Rational
 bern n
-  | n  < 0       =  0 %  1 
+  | n  < 0       =  0 %  1
   -- NO HAY NÚMEROS DE BERNOULLI DE ÍNDICE NEGATIVOS
   | n == 0       =  1 %  1 -- CASO BASE IMPRESCINDIBLE
-  | n == 1       = -1 %  2 -- CASO BASE PRESCINDIBLE
+  | n == 1       =-1 %  2 -- CASO BASE PRESCINDIBLE
   | n == 2       =  1 %  6 -- CASO BASE PRESCINDIBLE
   | n == 3       =  0 %  1 -- CASO BASE PRESCINDIBLE
-  | n == 4       = -1 % 30 -- CASO BASE PRESCINDIBLE
-  | mod n 2 == 0 = -sum [ coef (n + 1) k | k <- [0..(n-1)] ] * ( 1 % (n + 1) )
+  | n == 4       =-1 % 30 -- CASO BASE PRESCINDIBLE
+  | mod n 2 == 0 =-sum [ coef (n + 1) k | k <- [0..(n-1)] ] * ( 1 % (n + 1) )
   -- CASO DE RECURRENCIA GENERAL PARA ÍNDICES PARES
   | otherwise    =  0 %  1 -- CASO DE ÍNDICES IMPARES
     where
@@ -94,15 +94,15 @@ bern_monomial n k
 
 bern_poly :: Integer -> (Rational -> Rational)
 bern_poly n
-  | n        < 0 =  \x ->   0 % 1 
+  | n        < 0 =  \x ->   0 % 1
   --CASO DE NO EXISTENCIA DEL POLINOMIO DE BERNOULLI
-  | n       == 0 =  \x ->   1 % 1 
+  | n       == 0 =  \x ->   1 % 1
   --CASO BASE IMPRESICINDIBLE
-  | n       == 1 =  \x ->  -1 % 2 + x 
+  | n       == 1 =  \x ->  -1 % 2 + x
   --CASO BASE PRESCINDIBLE
-  | n       == 2 =  \x ->   1 % 6 - x + x^^2 
+  | n       == 2 =  \x ->   1 % 6 - x + x^^2
   --CASO BASE PRESCINDIBLE
-  | n       == 3 =  \x ->   (1 % 2) * x + (-3 % 2) * x^^2 + x^^3 
+  | n       == 3 =  \x ->   (1 % 2) * x + (-3 % 2) * x^^2 + x^^3
   -- CASO BASE PRESCINDIBLE
   | n       == 4 =  \x -> (-1 % 30) + x^^2 + (-2 % 1) * x^^3 + x^^4
   -- CASO BASE PRESCINDIBLE
@@ -139,9 +139,9 @@ bern_poly n
 fnAT :: Integer -> Integer -> Rational
 -- Akiyama-Tanigawa numbers (table 2D of numbers)
 fnAT n m
-    | n < 0 || m < 0          = 0%1
-    | n == 0 && m == 0        = 1%1
-    | n == 0                  = 1%(m+1)
+    | n < 0 || m < 0          = 0 % 1
+    | n == 0 && m == 0        = 1 % 1
+    | n == 0                  = 1 % (m+1)
     | n == 1                  = ( (m + 1) % 1 )*( (fnAT 0 m) - (fnAT 0 (m+1)) )
     | n == 2                  = ( (m + 1) % 1 )*( (fnAT 1 m) - (fnAT 1 (m+1)) )
     | otherwise               = ( (m + 1) % 1 )*( (fnAT (n-1) m)-(fnAT (n-1) (m+1)) )
@@ -161,13 +161,13 @@ fnJC' n m
     | n <= 0 || m <= 0        = 0%1 -- CASO ERRÓNEO
     | m > n                   = 0%1 -- CASO ERRÓNEO
     | m == 1                  = 1%n -- CASO BASE
-    | otherwise               = -(inv (n-m+1)) * (sumtorio n m) -- CASO GENERAL
+    | otherwise               =-(inv (n-m+1)) * (sumtorio n m) -- CASO GENERAL
       where
         sumtorio :: Integer -> Integer -> Rational
-        sumtorio n m = sum[ (sumndo n m l) * (fnJC' n (m-l+1)) | l <- [2..m] ]
+        sumtorio n m = sum [ (sumndo n m l) * (fnJC' n (m-l+1)) | l <- [2..m] ]
           where
             sumndo :: Integer -> Integer -> Integer -> Rational
-            sumndo n m l = (binom (n-m+l) (n-m)) % 1
+            sumndo n m l = binom (n-m+l) (n-m) % 1
 
 fnJC :: Integer -> Integer -> Rational
 fnJC n m = fnJC' n (n+1-m)
